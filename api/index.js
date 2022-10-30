@@ -6,11 +6,13 @@ const authRouter = require("./routes/auth");
 const hotelsRouter = require("./routes/hotels");
 const roomsRouter = require("./routes/rooms");
 const userRouter = require("./routes/users");
+const cookieParser = require("cookie-parser")
 dotenv.config()
 const PROT = 8000
 
 
 app.use(express.json())
+app.use(cookieParser())
 
 const connoctDB = async()=>{
     try {
@@ -28,9 +30,9 @@ app.use('/api/rooms', roomsRouter)
 
 
 app.use((err,req,res,next)=>{
-    const errorStatus = err.stutus || 500
+    const errorStatus = err.status || 500
     const errorMessage = err.message || "Something went wrong"
-    return res.stutus(errorStatus).json({
+    return res.status(errorStatus).json({
         success:false,
         status:errorStatus,
         message:errorMessage,
