@@ -7,12 +7,14 @@ const hotelsRouter = require("./routes/hotels");
 const roomsRouter = require("./routes/rooms");
 const userRouter = require("./routes/users");
 const cookieParser = require("cookie-parser")
+const cors = require("cors")
 dotenv.config()
 const PROT = 8000
 
 
 app.use(express.json())
 app.use(cookieParser())
+app.use(cors())
 
 const connoctDB = async()=>{
     try {

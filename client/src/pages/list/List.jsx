@@ -6,6 +6,7 @@ import { useState } from "react";
 import { format } from "date-fns";
 import { DateRange } from "react-date-range";
 import SearchItem from "../../components/searchItem/SearchItem";
+import useFetch from "../../hokes/useFetch";
 
 const List = () => {
   const location = useLocation();
@@ -13,6 +14,14 @@ const List = () => {
   const [date, setDate] = useState(location.state.date);
   const [openDate, setOpenDate] = useState(false);
   const [options, setOptions] = useState(location.state.options);
+  const [min,setMin] = useState()
+  const [max,setMax] = useState()
+
+  const {data, loading,reFetch} = useFetch(`http://localhost:8000/api/hotels?city=${destination}&min=${min || 0}&mix=${max || 999999}`)
+
+  const handelSubmit = ()=>{
+    reFetch()
+  }
 
   return (
     <div>
@@ -47,7 +56,7 @@ const List = () => {
                   <span className="lsOptionText">
                     Min price <small>per night</small>
                   </span>
-                  <input type="number" className="lsOptionInput" />
+                  <input type="number" className="lsOptionInput" onChange={(e)=>setMin(e.target.value)}/>
                 </div>
                 <div className="lsOptionItem">
                   <span className="lsOptionText">
@@ -84,18 +93,19 @@ const List = () => {
                 </div>
               </div>
             </div>
-            <button>Search</button>
+            <button onClick={handelSubmit}>Search</button>
           </div>
           <div className="listResult">
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
+
+            {
+              loading ? <h2>Lodding....</h2> : <>
+                {
+                  data.map((item,i)=>(
+                    <SearchItem  key={i} item={item}/>
+                  ))
+                }
+               </>
+            }
           </div>
         </div>
       </div>
