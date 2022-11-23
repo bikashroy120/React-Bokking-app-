@@ -40,7 +40,7 @@ const jwt = require("jsonwebtoken")
         const token = jwt.sign({id:user._id,isAdmin:user.isAdmin},"abcdef")
 
         const {password,isAdmin,...orderDeteles} = user._doc
-        res.cookie("access-token",token,{httpOnly:true}).status(200).json({...orderDeteles})
+        res.cookie("access_token",token,{httpOnly:true}).status(200).json({...orderDeteles})
     } catch (error) {
         next(error)
     }
