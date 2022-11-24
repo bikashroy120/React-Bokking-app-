@@ -10,6 +10,19 @@ const jwt = require("jsonwebtoken")
     const hash = bcrypt.hashSync(req.body.password, salt);
 
     try {
+
+        const existUsername = await userModel.find({username: req.body.username})
+        console.log(existUsername.length)
+        const exitEmail = await userModel.find({email: req.body.email})
+        if(existUsername.length !== 0) {
+            return next(res.status(404).json({message: "Username already exist"}))
+        }
+        if(exitEmail.length !==  0) {
+            return next(res.status(404).json({message: "Email already exist"}))
+        }
+
+
+
         const newUser = new userModel({
             username:req.body.username,
             email:req.body.email,

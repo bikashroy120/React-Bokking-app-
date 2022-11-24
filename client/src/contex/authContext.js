@@ -42,7 +42,7 @@ const AuthReducer = (state,action)=>{
 
 
 
-export const SerachContextProvider = ({children})=>{
+export const AuthContextProvider = ({children})=>{
     const [state,dispatch] = useReducer(AuthReducer,INITIAL_STATE)
 
     useEffect(() => {
