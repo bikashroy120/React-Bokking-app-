@@ -1,0 +1,39 @@
+
+.auth_from{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+
+.auth_from div{
+    width: 500px;
+    height: auto;
+    box-shadow: 1px 1px 5px 1px gray;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth_from div input{
+    width: 100%;
+    padding: 10px 0px 10px 10px;
+    font-size: 17px;
+    outline: none;
+    border-radius: 6px;
+    margin-bottom: 5px;
+}
+
+.auth_from div button{
+    background: green;
+    color: #fff;
+    font-size: 17px;
+    padding: 10px 30px;
+    border: none;
+    outline: none;
+    border-radius: 7px;
+    cursor: pointer;
+}
