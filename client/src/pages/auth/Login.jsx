@@ -24,7 +24,7 @@ const Login = () => {
         dispatch({ type: "LOGIN_START" });
         try {
           const res = await axios.post("http://localhost:8000/api/auth/login", signupData);
-          dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
+          dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
           navigate("/")
         } catch (err) {
           dispatch({ type: "LOGIN_FAILURE", payload: err.response.data });
@@ -36,7 +36,7 @@ const Login = () => {
         <div>
             <input type="text" placeholder='User Name' id="username" onChange={handelData}/>
             <input type="password" placeholder='Password' id="password" onChange={handelData}/>
-            {error && <p style={{color:"red"}}>{error}</p>}
+            {/* {error && <p style={{color:"red"}}>{error}</p>} */}
             <button disabled={loading} onClick={handleClick}>Sign up</button>
         </div>
     </div>

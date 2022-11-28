@@ -1,4 +1,5 @@
 const hotelsModel = require("../modal/Hotels")
+const roomModel = require("../modal/room-modal")
 
 
 const createHotels = async(req,res,next)=>{
@@ -100,4 +101,19 @@ const countByCity = async(req,res,next)=>{
   };
 
 
-module.exports = {createHotels,updateHotels,deletedHotels,getOneHotels,getAllHotels,countByCity,countByType}
+  const getHotelRooms = async(req,res,next)=>{
+        try {
+            const hotel = await hotelsModel.findById(req.params.id)
+            const list  = await Promise.all(
+                hotel.rooms.map((item)=>{
+                    return roomModel.findById(item)
+                })
+            )
+
+            res.status(200).json(list)
+        } catch (error) {
+            next(error)
+        }
+  }
+
+module.exports = {createHotels,updateHotels,deletedHotels,getOneHotels,getAllHotels,countByCity,countByType,getHotelRooms}

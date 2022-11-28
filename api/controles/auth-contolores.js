@@ -12,7 +12,7 @@ const jwt = require("jsonwebtoken")
     try {
 
         const existUsername = await userModel.find({username: req.body.username})
-        console.log(existUsername.length)
+      
         const exitEmail = await userModel.find({email: req.body.email})
         if(existUsername.length !== 0) {
             return next(res.status(404).json({message: "Username already exist"}))
