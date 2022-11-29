@@ -50,7 +50,7 @@ const Hotel = () => {
 
   const { data } = useFetch(`http://localhost:8000/api/hotels/find/${id}`)
 
-  const { dates, options } = useContext(SearchContext);
+  const { dates,options} = useContext(SearchContext);
 
   const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
   function dayDifference(date1, date2) {
@@ -59,9 +59,11 @@ const Hotel = () => {
     return diffDays;
   }
 
-  // const days = dayDifference(dates[0]?.endDate, dates[0]?.startDate);
 
-  console.log(data)
+
+  const days = dayDifference(dates[0]?.endDate, dates[0]?.startDate);
+
+
 
   const handleOpen = (i) => {
     setSlideNumber(i);
@@ -156,9 +158,9 @@ const Hotel = () => {
                 excellent location score of 9.8!
               </span>
               <h2>
-                <b>$945</b> (9 nights)
+                <b>${days * data.cheapestPrice * options.room}</b> ({days} nights)
               </h2>
-              <button onClick={()=>setRevers(false)}>Reserve or Book Now!</button>
+              <button onClick={()=>setRevers(true)}>Reserve or Book Now!</button>
             </div>
           </div>
         </div>
@@ -167,7 +169,7 @@ const Hotel = () => {
       </div>
 
       {
-        revers && <Reserve setRevers={setRevers}/>
+        revers && <Reserve setRevers={setRevers} hotelId={id}/>
       }
     </div>
   );
